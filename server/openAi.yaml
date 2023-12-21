@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: Patient Management API
+  description: API RESTful for data patients management (CRUD)
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3001
+    description: dev url
+
+paths :
+  /patients :
+    get :
+      description: get all the patients lists
+      responses:
+        '200':
+          description: successful operation
+               
+    post :
+      description: Add a new patient
+      requestBody:
+        description: Create a new patient
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatedPatient'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patient'          
+            
+        '400':
+          description: Bad request if the patient already exists or validation error
+
+  /patients/{id} :
+    get:
+      description: get an existing patient by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID of patient to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+        
+        '404':
+          description: Patient not found
+    put:
+      description: update an existing patient by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID of patient to update
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+        
+        '404':
+          description: Patient not found
+    delete:
+      description: remove a patient 
+      parameters:
+        - name: id
+          in: path
+          description: ID of patient to remove
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+        
+        '404':
+          description: Patient not found
+
+components: 
+    schemas:
+      Patient:
+       type: object
+       properties:
+        id:
+          type: integer
+          example: 10
+        firstName:
+          type: string
+          example: Rana
+
+        email:
+          type: string
+          example: rana@gmail.com
+
+        BirthDate:
+          type: string
+          example: 07/07/2003
+
+        Gender:
+          type: string
+          example: Female
+          enum :
+            - Female
+            - Male
+        Address:
+          type: string
+          example: Tunis
+        PhoneNumber:
+          type: integer
+          example: 216007785
+        MedicalInformation:
+          type: string
+          example: break leg
+        InsurranceInformation:
+          type: string
+          example: break leg
+        status:
+          type: string
+          example: On hold
+          enum:
+            - on Hold
+            - Active
+            - Discharged
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt :
+          type: string
+          format: date-time
+      CreatedPatient:
+       type: object
+       properties:
+        firstName:
+          type: string
+          example: Rana
+
+        email:
+          type: string
+          example: rana@gmail.com
+
+        BirthDate:
+          type: string
+          example: 07/07/2003
+
+        Gender:
+          type: string
+          example: Female
+          enum :
+            - Female
+            - Male
+        Address:
+          type: string
+          example: Tunis
+        PhoneNumber:
+          type: integer
+          example: 216007785
+        MedicalInformation:
+          type: string
+          example: break leg
+        InsurranceInformation:
+          type: string
+          example: break leg
+        status:
+          type: string
+          example: On hold
+          enum:
+            - on Hold
+            - Active
+            - Discharged
