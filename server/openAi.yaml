@@ -55,7 +55,7 @@ paths :
         
         '404':
           description: Patient not found
-    put:
+    patch:
       description: update an existing patient by Id
       parameters:
         - name: id
@@ -85,11 +85,7 @@ paths :
             type: string
       responses:
         '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Patient'          
+          description: Successful operation         
         
         '404':
           description: Patient not found
